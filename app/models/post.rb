@@ -12,6 +12,12 @@ class Post < ApplicationRecord
     comments.order(created_at: :asc).limit(5)
   end
 
+  validates :title, presence: true, length: { maximum: 250 }
+
+  validates :likes_counter, numericality: { only_integer: true }
+
+  validates :comments_counter, numericality: { only_integer: true }
+
   private
 
   def update_user_posts_number
