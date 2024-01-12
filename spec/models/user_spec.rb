@@ -8,8 +8,10 @@ RSpec.describe User, type: :model do
   end
 
   describe 'validations' do
-    subject { User.new(name: 'Shahadat Hossain',
-    photo: 'https://photo.com', bio: 'A skilled design and installation.') }
+    subject do
+      User.new(name: 'Shahadat Hossain',
+               photo: 'https://photo.com', bio: 'A skilled design and installation.')
+    end
 
     before { subject.save }
 
@@ -22,6 +24,5 @@ RSpec.describe User, type: :model do
       subject.photo = nil
       expect(subject).to(be_valid)
     end
-    
   end
 end
