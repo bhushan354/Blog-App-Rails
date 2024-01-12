@@ -4,11 +4,9 @@ RSpec.describe Post, type: :model do
   let(:user) { create(:user) }
 
   describe 'validations' do
-
     subject { Post.new(title: 'Post title', text: 'First post', author_id: 2, comments_counter: 0, likes_counter: 0) }
 
     before { subject.save }
-
 
     it 'title should be present' do
       subject.title = nil
@@ -16,7 +14,7 @@ RSpec.describe Post, type: :model do
     end
 
     it "title shouldn't exceed 250 characters" do
-      subject.title = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.'
+      subject.title = 'a' * 251
       expect(subject).to_not(be_valid)
     end
 
@@ -32,22 +30,20 @@ RSpec.describe Post, type: :model do
     it 'should have a positive likes counter' do
       subject.likes_counter = -1
       expect(subject).to_not(be_valid)
-    end 
-
-  end
-
-
-  describe 'return_recent_comments' do
-    it 'should return recent comments in ascending order' do
-      user = User.create(name: 'Shahadat Hossain', photo: 'https://images.unsplash.com/photo-1651684215020-f7a5b6610f23?&fit=crop&w=640', bio: 'A skilled carpenter with over 15 years of experience, specializing in custom furniture design and installation.')
-  
-      post = Post.create(title: 'Post title', text: 'First post', author_id:user.id, comments_counter: 0, likes_counter: 0)
-      comment1 = post.comments.create(text: 'Comment 1', user:user)
-      comment2 = post.comments.create(text: 'Comment 2', user:user)
-    
-    
-      expect(post.recent_comments).to eq([comment1, comment2])
     end
   end
 
+  describe 'return_recent_comments' do
+    it 'should return recent comments in ascending order' do
+      user = User.create(name: 'Shahadat Hossain',
+                         photo: '', bio: 'A skilled design and installation.')
+
+      post = Post.create(title: 'Post title', text: 'First post', author_id: user.id, comments_counter: 0,
+                         likes_counter: 0)
+      comment1 = post.comments.create(text: 'Comment 1', user:)
+      comment2 = post.comments.create(text: 'Comment 2', user:)
+
+      expect(post.recent_comments).to eq([comment1, comment2])
+    end
+  end
 end
