@@ -46,5 +46,19 @@ RSpec.describe Post, type: :model do
     end
   end
 
+  describe 'update_user_posts_number' do
+    it 'should update the number of posts' do 
+      user = User.create(name: 'Bhushan Deshmukh', photo: 'https://photos.com', bio: 'good human')
+
+      expect(user.posts_counter).to eq(0)
+
+      post = Post.create(title: 'Post title', text: 'First post', author_id: user.id, comments_counter: 0, likes_counter: 0)
+      # this 'user.reload' is to ensure that the user's attributes are reloaded from the database
+      user.reload
+
+      expect(user.posts_counter).to eq(1)
+
+    end
+  end
   
 end
