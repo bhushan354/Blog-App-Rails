@@ -34,7 +34,7 @@ RSpec.describe Post, type: :model do
   describe 'return_recent_comments' do
     it 'should return recent comments in ascending order' do
       user = User.create(name: 'Shahadat Hossain',
-                         photo: '', bio: 'A skilled design and installation.')
+                         photo: 'https://photo.com', bio: 'A skilled design and installation.')
 
       post = Post.create(title: 'Post title', text: 'First post', author_id: user.id, comments_counter: 0,
                          likes_counter: 0)
