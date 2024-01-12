@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user) { create(:user) }
 
   describe 'validations' do
     subject { Post.new(title: 'Post title', text: 'First post', author_id: 2, comments_counter: 0, likes_counter: 0) }
@@ -46,4 +45,6 @@ RSpec.describe Post, type: :model do
       expect(post.recent_comments).to eq([comment1, comment2])
     end
   end
+
+  
 end
