@@ -1,32 +1,53 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  subject { Post.new(title: 'Post title', text: 'First post', author_id: 2, comments_counter: 0, likes_counter: 0) }
-  before { subject.save }
+  let(:user) { create(:user) }
 
-  it 'title should be present' do
-    subject.title = nil
-    expect(subject).to_not(be_valid)
+  describe 'validations' do
+
+    subject { Post.new(title: 'Post title', text: 'First post', author_id: 2, comments_counter: 0, likes_counter: 0) }
+
+    before { subject.save }
+
+
+    it 'title should be present' do
+      subject.title = nil
+      expect(subject).to_not(be_valid)
+    end
+
+    it "title shouldn't exceed 250 characters" do
+      subject.title = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.'
+      expect(subject).to_not(be_valid)
+    end
+
+    it 'should have a positive comments counter' do
+      subject.comments_counter = -1
+      expect(subject).to_not(be_valid)
+    end
+
+    it 'post_counter method should raise an error without a user' do
+      expect { subject.post_counter }.to raise_error(NoMethodError)
+    end
+
+    it 'should have a positive likes counter' do
+      subject.likes_counter = -1
+      expect(subject).to_not(be_valid)
+    end 
+
   end
 
-  it "title shouldn't exceed 250 character" do
-    subject.title = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-    Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.'
-    expect(subject).to_not(be_valid)
+
+  describe 'return_recent_comments' do
+    it 'should return recent comments in ascending order' do
+      user = User.create(name: 'Shahadat Hossain', photo: 'https://images.unsplash.com/photo-1651684215020-f7a5b6610f23?&fit=crop&w=640', bio: 'A skilled carpenter with over 15 years of experience, specializing in custom furniture design and installation.')
+  
+      post = Post.create(title: 'Post title', text: 'First post', author_id:user.id, comments_counter: 0, likes_counter: 0)
+      comment1 = post.comments.create(text: 'Comment 1', user:user)
+      comment2 = post.comments.create(text: 'Comment 2', user:user)
+    
+    
+      expect(post.recent_comments).to eq([comment1, comment2])
+    end
   end
 
-  it 'should have positive comments counter' do
-    subject.comments_counter = -1
-    expect(subject).to_not(be_valid)
-  end
-
-  it 'post_counter method should raise an error without user' do
-    expect { subject.post_counter }.to raise_error(NoMethodError)
-  end
-
-  it 'should have positive likes counter' do
-    subject.likes_counter = -1
-    expect(subject).to_not(be_valid)
-  end
 end
