@@ -27,17 +27,18 @@ RSpec.describe User, type: :model do
   end
 
   describe 'recent_posts' do
-    it 'should return 3 recent posts in descending order' do 
+    it 'should return 3 recent posts in descending order' do
       user = User.create(name: 'Bhushan Deshmukh',
-               photo: 'https://photo.com', bio: 'A skilled design and installation.')
+                         photo: 'https://photo.com', bio: 'A skilled design and installation.')
 
-      post1 = Post.create(title: 'Post title', text: 'First post', author_id: user.id, comments_counter: 0,likes_counter: 0)
+      post1 = Post.create(title: 'Post title', text: 'First post', author_id: user.id, comments_counter: 0,
+                          likes_counter: 0)
 
       post2 = Post.create(title: 'Post title', text: 'second post', author_id: user.id, comments_counter: 0,
-      likes_counter: 0)  
+                          likes_counter: 0)
 
       post3 = Post.create(title: 'Post title', text: 'third post', author_id: user.id, comments_counter: 0,
-      likes_counter: 0)   
+                          likes_counter: 0)
 
       expect(user.recent_posts).to eq([post3, post2, post1])
     end
