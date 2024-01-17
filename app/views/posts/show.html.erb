@@ -1,15 +1,16 @@
-<article>
+<div class="random" style="display: flex; justify-content: space-around;">
   <div>
     <h3>Post #<%= @post.id %> by <%= @post.author.name %></h3>
     <div>
-      <p>Number of Comments: <%= @post.comments_counter %></p>
-      <p>Number of Likes: <%= @post.likes_counter %></p>
+      <p><%= @post.text %></p>
     </div>
   </div>
-  <p><%= @post.text %></p>
-</article>
+  <p>Number of Comments: <%= @post.comments_counter %></p>
+  <p>Number of Likes: <%= @post.likes_counter %></p>
+  
+</div class="random" style="display: flex; justify-content: space-around;">
 
-<article >
+<div class="random" style="display: flex; justify-content: space-around; flex-direction: column;align-items: center;" >
   <% if @comments.present? %>
     <% @comments.each do |comment| %>
       <%= render partial: 'comments/commets', locals: { comment: comment } %>
@@ -17,4 +18,4 @@
   <% else %>
     <p>No comments yet.</p>
   <% end %>
-</article>
+</div class="random" style="display: flex; justify-content: space-around;">
