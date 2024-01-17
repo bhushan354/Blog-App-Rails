@@ -2,7 +2,7 @@
     <% if user.photo.present? %>
     <img class="photoUser" src="<%= user.photo %>" alt="<%= "#{user.name}'s picture" %>">
     <% else %>
-    <div class="demo-photo"></div>
+    <div class="demo-photo" src="person.png"></div>
     <% end %>
 
     <div class="user-detail">
