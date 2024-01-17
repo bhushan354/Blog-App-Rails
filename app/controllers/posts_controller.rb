@@ -9,4 +9,3 @@ class PostsController < ApplicationController
     @comments = @post.comments
   end
 end
-  
