@@ -12,7 +12,7 @@
 <article >
   <% if @comments.present? %>
     <% @comments.each do |comment| %>
-      <%= render partial: 'comments/comments', locals: { comment: comment } %>
+      <%= render partial: 'comments/commets', locals: { comment: comment } %>
     <% end %>
   <% else %>
     <p>No comments yet.</p>
