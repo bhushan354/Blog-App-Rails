@@ -1,0 +1,13 @@
+<section>
+    
+    <article>
+      <% if post.comments.present? %>
+        <% post.comments.each do |comment| %>
+          <%= render partial: 'comments/comment', locals: { comment: comment } %>
+        <% end %>
+      <% else %>
+        <p>No comments yet.</p>
+      <% end %>
+    </article>
+    <hr/>
+  </section>

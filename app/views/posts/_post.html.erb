@@ -1,0 +1,9 @@
+<div class="post">
+    <h3 class="post.title">Post #<%= post.id %></h3>
+    <p class="post.text"><%= post.text %></p>
+    <div class="counts-container" style="display: flex; gap: 12px; float: right;">
+      <p class="no-of-comments">Comments: <%= post.comments_counter %></p>
+      <p class="no-of-likes">Likes: <%= post.likes_counter %></p>
+    </div>
+    <hr>
+  </div>

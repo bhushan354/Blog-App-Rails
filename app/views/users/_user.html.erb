@@ -1,0 +1,15 @@
+<div class="user">
+    <% if user.photo.present? %>
+    <img class="photoUser" src="<%= user.photo %>" alt="<%= "#{user.name}'s picture" %>">
+    <% else %>
+    <div class="demo-photo"></div>
+    <% end %>
+
+    <div class="user-detail">
+        <h2 class="user-name"><%= user.name %></h2>
+        <!-- this (user) below is attribute passed eg. the generated url look like "user_path/1" if user argument has an id attribute of 1 -->
+        <%= link_to user_path(user) do%>
+        <h4>Total Number of Posts: <%= user.posts_counter %></h4>
+        <% end %>
+    </div>
+</div>
