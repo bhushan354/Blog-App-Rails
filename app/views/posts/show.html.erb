@@ -21,3 +21,9 @@
     <p>No comments yet.</p>
   <% end %>
 </div>
+
+<%= link_to user_post_comments_path(@user, @post) do %>
+    <p style="display: flex; justify-content: center; text-shadow: 2px 2px 4px grey;">
+      <span style="border: 3px solid grey; padding: 4px">add new comment</span>
+    </p>
+  <% end %>
