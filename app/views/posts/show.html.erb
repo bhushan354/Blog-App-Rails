@@ -1,8 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  </head>
- 
-  <body> <h1>Particular single post of a user</h1></body>
-</html>
+<div class="random" style="display: flex; justify-content: space-between; border: 2px solid grey;">
+  <div>
+    <h3>Post #<%= @post.id %> by <%= @post.author.name %></h3>
+    <div>
+      <p><%= @post.text %></p>
+    </div>
+  </div>
+  <div style="display: flex; padding: 6px; gap: 10px">
+  <p>Comments: <%= @post.comments_counter %></p>
+  <p>Likes: <%= @post.likes_counter %></p>
+</div>
+  
+</div>
+
+<div class="random" style="display: flex;flex-direction: column; border: 2px solid grey;" >
+  <% if @comments.present? %>
+    <% @comments.each do |comment| %>
+      <%= render partial: 'comments/commets', locals: { comment: comment } %>
+    <% end %>
+  <% else %>
+    <p>No comments yet.</p>
+  <% end %>
+</div>

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
+  root "users#index"
 
   # When someone visits this URL, "users#show" will invoke the show action in the UsersController
 

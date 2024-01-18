@@ -1,9 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-    <h1>Details of particular user</h1>
-  <body>
-  </body>
-</html>
+<!-- locals is a way to pass local variables to a partial -->
+<%= render partial: 'users/user', locals: { user: @user } %>
+<div>
+  <h3>Bio</h3>
+  <p><%= @user.bio %></p>
+</div>
+<hr><hr>
+
+<section id="posts-container">
+  <% @user.recent_posts.each do |post| %>
+    <%= render partial: 'posts/post', locals: { post: post } %>
+  <% end %>
+
+  <%= link_to user_posts_path(@user) do %>
+    <p style="display: flex; justify-content: center; text-shadow: 2px 2px 4px grey;">
+      <span style="border: 3px solid grey; padding: 4px">See all posts</span>
+    </p>
+
+  <% end %>
+</section>

@@ -1,0 +1,22 @@
+<%= render partial: 'users/user', locals: { user: @user } %>
+
+<section id="posts-container">
+  <% @user.posts.each do |post| %>
+    <%= render partial: 'posts/post', locals: { post: post } %>
+    <div style="border: 2px solid grey;">
+      <% if post.comments.present? %>
+        <% post.recent_comments.each do |comment| %>
+          <%= render partial: 'comments/commets', locals: { comment: comment } %>
+        <% end %>
+      <% else %>
+        <p>No comments yet.</p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= link_to user_path(@user) do %>
+    <p style="display: flex; justify-content: center; text-shadow: 2px 2px 4px grey;">
+      <span style="border: 3px solid grey; padding: 4px">See less posts</span>
+    </p>
+  <% end %>
+</section>
