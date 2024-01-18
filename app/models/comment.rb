@@ -7,6 +7,8 @@ class Comment < ApplicationRecord
 
   # sets up a callback that triggers the update_comments_counter method after a new comment is created
   after_create :update_comments_number
+  validates :author, presence: true
+  validates :text, presence: true
 
   def update_comments_number
     # this 'post' is model not table thats why it is written in singular (it is updating the count of single post)
