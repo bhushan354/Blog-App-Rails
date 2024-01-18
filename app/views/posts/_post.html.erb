@@ -1,13 +1,13 @@
-<div class="post">
+<div class="post" style="border: 2px solid grey; margin-top: 6px">
 <!-- I have to pass user and post both variable here in order to make this link work -->
   <%= link_to user_post_path(@user, post) do %>
     <h3 class="post.title">Post #<%= post.id %></h3>
     <% end %>
-
+<div class="post-single" style="display: flex; flex-direction: column; border: 2px solid grey;">
     <p class="post.text"><%= post.text %></p>
-    <div class="counts-container" style="display: flex; gap: 12px; float: right;">
+    <div class="counts-container" style="display: flex; gap: 12px; float: right;justify-content: end;">
       <p class="no-of-comments">Comments: <%= post.comments_counter %></p>
       <p class="no-of-likes">Likes: <%= post.likes_counter %></p>
     </div>
-    <hr>
-  </div>
+</div>
+</div>
