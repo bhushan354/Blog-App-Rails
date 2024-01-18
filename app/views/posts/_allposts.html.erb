@@ -6,7 +6,7 @@
       <div style="border: 2px solid grey;">
       <% if post.comments.present? %>
       
-          <% post.comments.each do |comment| %>
+          <% post.recent_comments do |comment| %>
             <%= render partial: 'comments/commets', locals: { comment: comment } %>
           <% end %>
           <% else %>
