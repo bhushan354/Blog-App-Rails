@@ -18,6 +18,8 @@ class Post < ApplicationRecord
 
   validates :comments_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
+  validates :text, presence: true
+
   private
 
   def update_user_posts_number
