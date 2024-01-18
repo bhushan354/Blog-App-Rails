@@ -1,6 +1,7 @@
-<div class="user" style="display: flex; justify-content: space-around;">
+<div class="user" style="display: flex; justify-content: space-between;">
     <% if user.photo.present? %>
-    <img class="photoUser" src="<%= user.photo %>" alt="<%= "#{user.name}'s picture" %>" style="border: 2px solid green">
+    <img class="photoUser" src="<%= user.photo %>" alt="<%= "#{user.name}'s picture" %>" style="border: 2px solid green;  height: 80px;
+    width: 80px; margin-top: 12px;">
     <% else %>
     <div class="demo-photo" src="person.png"></div>
     <% end %>
