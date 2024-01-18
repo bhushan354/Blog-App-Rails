@@ -3,14 +3,16 @@
 <section id="posts-container">
     <% @user.posts.each do |post| %>
       <%= render partial: 'posts/post', locals: { post: post } %>
-
+      <div style="border: 2px solid grey;">
       <% if post.comments.present? %>
-      <% post.comments.each do |comment| %>
-        <%= render partial: 'comments/commets', locals: { comment: comment } %>
-      <% end %>
-    <% else %>
-      <p>No comments yet.</p>
-    <% end %>
+      
+          <% post.comments.each do |comment| %>
+            <%= render partial: 'comments/commets', locals: { comment: comment } %>
+          <% end %>
+          <% else %>
+            <p>No comments yet.</p>
+          <% end %>
+      </div>
     <% end %>
   
     <%= link_to user_path(@user) do %>

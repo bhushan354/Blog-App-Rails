@@ -1,16 +1,18 @@
-<div class="random" style="display: flex; justify-content: space-around;">
+<div class="random" style="display: flex; justify-content: space-between; border: 2px solid grey;">
   <div>
     <h3>Post #<%= @post.id %> by <%= @post.author.name %></h3>
     <div>
       <p><%= @post.text %></p>
     </div>
   </div>
-  <p>Number of Comments: <%= @post.comments_counter %></p>
-  <p>Number of Likes: <%= @post.likes_counter %></p>
+  <div style="display: flex; padding: 6px; gap: 10px">
+  <p>Comments: <%= @post.comments_counter %></p>
+  <p>Likes: <%= @post.likes_counter %></p>
+</div>
   
-</div class="random" style="display: flex; justify-content: space-around;">
+</div>
 
-<div class="random" style="display: flex; justify-content: space-around; flex-direction: column;align-items: center;" >
+<div class="random" style="display: flex;flex-direction: column; border: 2px solid grey;" >
   <% if @comments.present? %>
     <% @comments.each do |comment| %>
       <%= render partial: 'comments/commets', locals: { comment: comment } %>
@@ -18,4 +20,4 @@
   <% else %>
     <p>No comments yet.</p>
   <% end %>
-</div class="random" style="display: flex; justify-content: space-around;">
+</div>
