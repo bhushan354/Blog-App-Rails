@@ -1,4 +1,0 @@
-<h2><%= @post.title %></h2>
-<%= render partial: 'posts/post', locals: {post: @post}
-<%= render partial: 'comments/comment_form', locals: { post: @post, comment: @comment } %>
-<%= render partial: 'comments/commets', collection: @post.comments %>

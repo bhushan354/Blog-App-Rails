@@ -1,4 +1,3 @@
-<!-- locals is a way to pass local variables to a partial -->
 <%= render partial: 'users/user', locals: { user: @user } %>
 <div>
   <h3>Bio</h3>
@@ -6,15 +5,20 @@
 </div>
 <hr><hr>
 
-<section id="posts-container">
+<section id="allPosts">
   <% @user.recent_posts.each do |post| %>
     <%= render partial: 'posts/post', locals: { post: post } %>
   <% end %>
 
   <%= link_to user_posts_path(@user) do %>
-    <p style="display: flex; justify-content: center; text-shadow: 2px 2px 4px grey;">
-      <span style="border: 3px solid grey; padding: 4px">See all posts</span>
-    </p>
-
+  <p style="display: flex; justify-content: center; text-shadow: 2px 2px 4px grey;">
+    <span style="border: 3px solid grey; padding: 4px">See all posts</span>
+  </p>
   <% end %>
+  
+  <p style="display: flex; justify-content: center; text-shadow: 2px 2px 4px grey;">
+    <span style="border: 3px solid grey; padding: 4px"> <%= link_to 'New Post', new_user_post_path(@user) %></span>
+  </p>
+ 
+
 </section>

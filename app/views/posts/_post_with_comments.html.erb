@@ -1,0 +1,13 @@
+<section style="margin-top: 4px;">
+  <%= render partial: 'posts/post', locals: { post: post } %>
+  
+  <div style="border: 1px solid grey; padding:4px;">
+    <% if post.comments.present? %>
+      <% post.recent_comments.each do |comment| %>
+        <%= render partial: 'comments/comment', locals: { comment: comment } %>
+      <% end %>
+    <% else %>
+      <p>No comment . click on post to add new comment</p>
+    <% end %>
+  </div>
+</section>

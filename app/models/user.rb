@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  # dependent: :destroy option cascades the destruction, ensuring that all associated posts comments and likes are deleted when the user is deleted
+  # dependent: :destroy = ensuring that all associated posts comments and likes are deleted when the user is deleted
   has_many :posts, foreign_key: 'author_id', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -8,11 +8,14 @@ class User < ApplicationRecord
     posts.order(created_at: :desc).limit(3)
   end
 
+  def recent_comments
+    comments.order(created_at: :desc).limit(3)
+  end
+
   def recent_likes
     likes.order(created_at: :desc).limit(3)
   end
 
-  # This method is named likes?
   def likes?(post)
     likes.exists?(post_id: post.id)
   end

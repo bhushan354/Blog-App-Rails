@@ -4,23 +4,24 @@
     <div>
       <p><%= @post.text %></p>
     </div>
+    <%= render partial: 'likes/like_form', locals: { post: @post } %>
+
   </div>
   <div style="display: flex; padding: 6px; gap: 10px">
-  <p>Comments: <%= @post.comments_counter %></p>
-  <p>Likes: <%= @post.likes_counter %></p>
-</div>
-  
+    <p>Comments: <%= @post.comments_counter %></p>
+    <p>Likes: <%= @post.likes_counter %></p>
+  </div>
 </div>
 
-<div class="random" style="display: flex;flex-direction: column; border: 2px solid grey;" >
-  <% if @comments.present? %>
-    <% @comments.each do |comment| %>
-      <%= render partial: 'comments/commets', locals: { comment: comment } %>
-    <% end %>
+<article style="border: 1px solid gray">
+  <%= render partial: 'comments/comment_form', locals: { post: @post, comment: Comment.new } %>
+
+  <% if @comments&.any? %>
+    <%= render partial: 'comments/comment', collection: @comments %>
   <% else %>
     <p>No comments yet.</p>
   <% end %>
-  <%= render partial: 'comments/comment_form', locals: { comment: Comment.new, post: @post, submit_label: 'Add Comment' } %>
-</div>
+</article>
+
 
 

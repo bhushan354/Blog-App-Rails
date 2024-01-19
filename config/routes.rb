@@ -6,21 +6,12 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
   root "users#index"
 
-  # When someone visits this URL, "users#show" will invoke the show action in the UsersController
-
-  get "/users", to: 'users#index', as: 'users'
-
-  get "/users/:user_id", to: 'users#show', as: 'user'
-
-  # "as: 'user_posts'" is giving a name to this route. This name, user_posts, becomes a method that you can use in your Rails views or controllers to generate the URL associated with this route.
-  # you can use user_posts_path to generate the URL for the route "/users/:user_id/posts"
-  
-  get "users/:user_id/posts", to:'posts#index', as: 'user_posts'
-
-  get "users/:user_id/posts/:id", to: 'posts#show', as: 'user_post'
-
-  get "/users/:user_id/posts/:post_id/comments", to: 'comments#new', as: 'user_post_comments'
+  resources :users, only: [:index, :show] do
+    resources :posts, only: [:index, :show, :new, :create] do
+      resources :comments, only: [:new, :create], controller: 'comments'
+      resources :likes, only: [:create, :destroy], controller: 'likes'
+    end
+  end
 end

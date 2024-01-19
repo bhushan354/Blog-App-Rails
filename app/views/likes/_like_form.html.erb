@@ -1,0 +1,5 @@
+<% like = current_user.likes.find_by(post_id: post.id) %>
+
+<%= form_with(model: like, url: like ? user_post_like_path(post.author, post, like) : user_post_likes_path(post.author, post), method: like ? :delete : :post) do |form| %>
+  <%= form.submit like ? 'Unlike' : 'Like', class: like ? 'unlike-button' : 'like-button' %>
+<% end %>

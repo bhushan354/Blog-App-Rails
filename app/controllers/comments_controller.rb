@@ -6,8 +6,14 @@ class CommentsController < ApplicationController
 
   def create
     post = Post.find(params[:post_id])
-    Comment.create(post_params(post))
-    redirect_to user_post_path(current_user, post)
+    @comment = Comment.create(post_params(post))
+    if @comment.save
+      flash[:notice] = 'A new comment is added successfully'
+      redirect_to user_post_path(current_user, post)
+    else
+      flash.now[:error] = 'Something went wrong while creating comment'
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
@@ -15,7 +21,7 @@ class CommentsController < ApplicationController
   def post_params(post)
     a_post = params.require(:comment).permit(:text)
     a_post[:author] = current_user
-    a_user[:post] = post
-    a_user
+    a_post[:post] = post
+    a_post
   end
 end
