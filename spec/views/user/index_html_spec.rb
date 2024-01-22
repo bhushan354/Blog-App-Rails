@@ -19,21 +19,20 @@ RSpec.describe 'user_index_path testing', type: :system do
 
     it 'can see the user profile picture' do
       @users.each do |user|
-        # have_selector will check that the page has an img element where the src attribute contains the expected user.photo content.
         expect(page).to have_selector("img[src*='#{user.photo}']")
       end
     end
 
     it 'can see the number of posts each user has written' do
-        @users.each do |user|
-          expect(page).to have_content("Posts: #{user.posts_counter}")
-        end
+      @users.each do |user|
+        expect(page).to have_content("Posts: #{user.posts_counter}")
+      end
     end
 
     it 'redirects to the user show page when clicking on a user' do
-        user = @users.first
-          click_link user.name
-          expect(page).to have_current_path(user_path(user))
-      end
+      user = @users.first
+      click_link user.name
+      expect(page).to have_current_path(user_path(user))
+    end
   end
 end
