@@ -1,10 +1,23 @@
 class User < ApplicationRecord
-  has_many :posts, foreign_key: 'author_id'
-  has_many :comments
-  has_many :likes
+  # dependent: :destroy = ensuring that all associated posts comments and likes are deleted when the user is deleted
+  has_many :posts, foreign_key: 'author_id', dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   def recent_posts
     posts.order(created_at: :desc).limit(3)
+  end
+
+  def recent_comments
+    comments.order(created_at: :desc).limit(3)
+  end
+
+  def recent_likes
+    likes.order(created_at: :desc).limit(3)
+  end
+
+  def likes?(post)
+    likes.exists?(post_id: post.id)
   end
 
   validates :name, presence: true

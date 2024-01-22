@@ -4,9 +4,13 @@ class Comment < ApplicationRecord
   belongs_to :post
   # This association indicates that a comment belongs to a single post
   belongs_to :user
+  # alias_attribute method in Ruby on Rails is used to create an alias (an alternative name) for an attribute in a model
+  alias_attribute :author, :user
 
   # sets up a callback that triggers the update_comments_counter method after a new comment is created
   after_create :update_comments_number
+  validates :author, presence: true
+  validates :text, presence: true
 
   def update_comments_number
     # this 'post' is model not table thats why it is written in singular (it is updating the count of single post)
