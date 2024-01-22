@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "users#index"
 
+  # IMP : if we write resource we only get one route but if we write resources we get seven routes ,  you can check that using "rails routes "
+
   resources :users, only: [:index, :show] do
     resources :posts, only: [:index, :show, :new, :create] do
       resources :comments, only: [:new, :create], controller: 'comments'
