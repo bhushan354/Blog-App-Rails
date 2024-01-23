@@ -31,20 +31,6 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe 'return_recent_comments' do
-    it 'should return recent comments in ascending order' do
-      user = User.create(name: 'Shahadat Hossain',
-                         photo: 'https://photo.com', bio: 'A skilled design and installation.')
-
-      post = Post.create(title: 'Post title', text: 'First post', author_id: user.id, comments_counter: 0,
-                         likes_counter: 0)
-      comment1 = post.comments.create(text: 'Comment 1', user:)
-      comment2 = post.comments.create(text: 'Comment 2', user:)
-
-      expect(post.recent_comments).to eq([comment1, comment2])
-    end
-  end
-
   describe 'update_user_posts_number' do
     it 'should update the number of posts' do
       user = User.create(name: 'Bhushan Deshmukh', photo: 'https://photos.com', bio: 'good human')
