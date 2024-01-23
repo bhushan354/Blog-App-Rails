@@ -11,3 +11,12 @@ RSpec.describe 'Post show page', type: :system do
     Post.destroy_all
     User.destroy_all
   end
+  it "I can see the post's title." do
+    visit user_post_path(@user, @post)
+    puts page.text
+    expect(page).to have_content 'This is my first post'
+  end
+  it 'I can see who wrote the post.' do
+    visit user_post_path(@user, @post)
+    expect(page).to have_content 'Tom'
+  end
