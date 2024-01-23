@@ -1,4 +1,3 @@
-
 RSpec.describe 'Post show page', type: :system do
   before(:each) do
     @user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.')
@@ -20,7 +19,7 @@ RSpec.describe 'Post show page', type: :system do
     visit user_post_path(@user, @post)
     expect(page).to have_content 'Tom'
   end
-    it 'I can see how many comments it has.' do
+  it 'I can see how many comments it has.' do
     visit user_post_path(@user, @post)
     expect(page).to have_content 'Comments: 1'
   end
