@@ -19,7 +19,7 @@ RSpec.describe 'user_index_path testing', type: :system do
 
     it 'can see the user profile picture' do
       @users.each do |user|
-        expect(page).to have_selector("img[src*='#{user.photo}']")  
+        expect(page).to have_selector("img[src*='#{user.photo}']")
       end
     end
 
