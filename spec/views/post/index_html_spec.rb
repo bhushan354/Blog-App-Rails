@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'User post index page', type: :system do
   before(:each) do
-    @user = User.create(name: 'Bhushan', photo: 'https://unsplash.com/photos/panning-photograph-of-man-on-water-WE6A_jLpZwQ', bio: 'Teacher from Mexico.')
+    @user = User.create(name: 'Bhushan',
+                        photo: 'https://unsplash.comr-WE6A_jLpZwQ', bio: 'Teacher from Mexico.')
     @post = Post.create(author: @user, title: 'Hello', text: 'This is my first post')
 
     6.times do |i|
@@ -35,7 +36,6 @@ RSpec.describe 'User post index page', type: :system do
     visit user_posts_path(@user)
     expect(page).to have_content 'This is my first post'
   end
-  
 
   it 'shows some of the post\'s body.' do
     visit user_posts_path(@user)
@@ -47,7 +47,7 @@ RSpec.describe 'User post index page', type: :system do
     (1..5).each do |i|
       expect(page).to have_content "My Comment #{i}"
     end
-  end  
+  end
 
   it 'indicates how many comments a post has.' do
     visit user_posts_path(@user)
