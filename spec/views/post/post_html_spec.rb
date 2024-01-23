@@ -32,3 +32,12 @@ RSpec.describe 'Post show page', type: :system do
     visit user_post_path(@user, @post)
     expect(page).to have_content 'This is my first post'
   end
+  it 'I can see the username of each commentor.' do
+    visit user_post_path(@user, @post)
+    expect(page).to have_content 'Alice'
+  end
+  it 'I can see the comment each commentor left.' do
+    visit user_post_path(@user, @post)
+    expect(page).to have_content 'Great post!'
+  end
+end
