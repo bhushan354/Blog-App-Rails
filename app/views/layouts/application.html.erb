@@ -11,8 +11,14 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <%= yield %>
+    <p class="notice"><%= notice %></p>      
+    <p class="alert">
+      <%= alert %>
+      <%= link_to 'Sign up Now', new_user_registration_path unless user_signed_in? || 
+      current_page?(new_user_registration_path) || 
+      current_page?(new_user_registration_path) || 
+      current_page?(new_user_session_path)%>
+    </p>
   </body>
 </html>
