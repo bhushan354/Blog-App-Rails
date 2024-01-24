@@ -57,3 +57,27 @@ form#new_user {
   justify-content: center;
   margin-top: 8px;
 }
+h2 {
+  display: flex;
+  justify-content: center;
+}
+a {
+  display: flex;
+  justify-content: center;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+input {
+  display: flex;
+  width: 280px;
+  margin-top: 8px;
+  align-items: center;
+  justify-content: center;
+}
+p {
+  display: flex;
+  justify-content: center;
+}
