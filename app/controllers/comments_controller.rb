@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   # The load_and_authorize_resource method automatically loads the resource (model) based on the controller's actions
+  load_and_authorize_resource
+  
   def new
     @post = Post.includes(:comments).find(params[:post_id])
     @comment = Comment.new
