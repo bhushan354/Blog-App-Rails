@@ -25,4 +25,8 @@ class User < ApplicationRecord
   def likes?(post)
     likes.exists?(post_id: post.id)
   end
+
+  def admin?
+    role == 'admin'
+  end
 end

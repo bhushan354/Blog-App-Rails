@@ -8,6 +8,9 @@
 
   </div>
   <div style="display: flex; padding: 6px; gap: 10px">
+    <% if can? :destroy, @post %>
+    <%= button_to "Delet This Post" ,[@post.author, @post], method: :delete %>
+
     <p>Comments: <%= @post.comments_counter %></p>
     <p>Likes: <%= @post.likes_counter %></p>
   </div>
