@@ -11,11 +11,18 @@
   </head>
 
   <body>
+      <% if user_signed_in? %>
+      <%= form_tag destroy_user_session_path, method: :delete do %>
+        <%= button_tag "Logout", type: :submit, class: "logout-button" %>
+      <% end %>
+    <% end %>
+
     <%= yield %>
+    
     <p class="notice"><%= notice %></p>      
     <p class="alert">
       <%= alert %>
-      <%= link_to 'Sign up Now', new_user_registration_path unless user_signed_in? || 
+      <%= link_to 'Sign up', new_user_registration_path unless user_signed_in? || 
       current_page?(new_user_registration_path) || 
       current_page?(new_user_registration_path) || 
       current_page?(new_user_session_path)%>
