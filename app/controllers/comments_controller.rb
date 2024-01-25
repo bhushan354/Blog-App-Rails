@@ -1,4 +1,8 @@
 class CommentsController < ApplicationController
+  # The load_and_authorize_resource method automatically loads the corresponding resource (model instance) based on the controller's actions
+  # After loading the resource, CanCanCan checks whether the current user has the necessary permissions to perform the action on that resource by using ability class in ability.rb
+  load_and_authorize_resource
+
   def new
     @post = Post.includes(:comments).find(params[:post_id])
     @comment = Comment.new
@@ -14,6 +18,12 @@ class CommentsController < ApplicationController
       flash.now[:error] = 'Something went wrong while creating comment'
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    comment = Comment.find(params[post.id])
+    comment.destroy
+    redirect_to {user_posts(current_user)}
   end
 
   private
