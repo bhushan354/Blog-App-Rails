@@ -17,7 +17,7 @@ class Post < ApplicationRecord
 
   private
 
-  def update_user_posts_counter
+  def increment_posts_number
     # belongs_to :author at top hence
     author.update(posts_counter: author.posts_counter + 1)
   end

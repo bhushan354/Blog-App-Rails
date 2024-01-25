@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to user_path(params[:user_id])
+    redirect_to user_posts_path(params[:user_id]), notice: 'Post was successfully destroyed.'
   end
 
   private

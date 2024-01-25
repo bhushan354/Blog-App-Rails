@@ -2,6 +2,9 @@
   <%= render partial: 'posts/post', locals: { post: post } %>
   
   <div style="border: 1px solid grey; padding:4px;">
+      <% if can? :destroy, @post %>
+      <%= button_to "Delet This Post" ,[@post.author, @post], method: :delete %>
+      <% end %>
     <% if post.comments.present? %>
       <% post.recent_comments.each do |comment| %>
         <%= render partial: 'comments/comment', locals: { comment: comment } %>

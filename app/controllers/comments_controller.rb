@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   # The load_and_authorize_resource method automatically loads the corresponding resource (model instance) based on the controller's actions
   # After loading the resource, CanCanCan checks whether the current user has the necessary permissions to perform the action on that resource by using ability class in ability.rb
-  load_and_authorize_resource
+  # load_and_authorize_resource
 
   def new
     @post = Post.includes(:comments).find(params[:post_id])
@@ -9,11 +9,11 @@ class CommentsController < ApplicationController
   end
 
   def create
-    post = Post.find(params[:post_id])
-    @comment = Comment.create(post_params(post))
+    @post = Post.find(params[:post_id])
+    @comment = Comment.create(post_params(@post))
     if @comment.save
       flash[:notice] = 'A new comment is added successfully'
-      redirect_to user_post_path(current_user, post)
+      redirect_to user_post_path(current_user, @post)
     else
       flash.now[:error] = 'Something went wrong while creating comment'
       render :new, status: :unprocessable_entity
@@ -21,17 +21,27 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    comment = Comment.find(params[post.id])
-    comment.destroy
-    redirect_to {user_posts(current_user)}
+    @comment = Comment.find(params[:id])
+    @post = @comment.post
+
+    if can_user_remove_comment?(@comment)
+      @comment.destroy
+      flash[:notice] = 'Comment successfully deleted.'
+    else
+      flash[:alert] = 'You are not authorized to delete this comment.'
+    end
+
+    redirect_to user_post_path(@post.author, @post)
   end
 
   private
 
   def post_params(post)
-    a_post = params.require(:comment).permit(:text)
-    a_post[:author] = current_user
-    a_post[:post] = post
-    a_post
+    params.require(:comment).permit(:text).merge(author: current_user, post: post)
+  end
+  
+# current_user is currently authenticate_user
+  def can_user_remove_comment?(comment)
+    current_user == comment.user || current_user.role == 'admin'
   end
 end
