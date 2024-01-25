@@ -1,8 +1,8 @@
 class Ability
   include CanCan::Ability
 
-# if operator ||=
- def initialize(user)
+  # if operator ||=
+  def initialize(user)
     user ||= User.new
 
     if user.admin?
@@ -12,7 +12,5 @@ class Ability
       can :manage, Post, author_id: user.id
       can :manage, Comment, author_id: user.id
     end
-
   end
-
 end

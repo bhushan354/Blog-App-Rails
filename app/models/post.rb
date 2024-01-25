@@ -25,5 +25,4 @@ class Post < ApplicationRecord
   def decrement_posts_number
     author.update(posts_counter: author.posts_counter - 1)
   end
-
 end

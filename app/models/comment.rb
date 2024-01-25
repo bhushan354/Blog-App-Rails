@@ -14,7 +14,6 @@ class Comment < ApplicationRecord
   #   post.update(comments_counter: post.comments.count)
   # end
 
-
   private
 
   def increment_comments

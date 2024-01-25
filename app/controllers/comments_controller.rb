@@ -1,8 +1,5 @@
 class CommentsController < ApplicationController
-  # The load_and_authorize_resource method automatically loads the corresponding resource (model instance) based on the controller's actions
-  # After loading the resource, CanCanCan checks whether the current user has the necessary permissions to perform the action on that resource by using ability class in ability.rb
-  # load_and_authorize_resource
-
+  # The load_and_authorize_resource method automatically loads the resource (model) based on the controller's actions
   def new
     @post = Post.includes(:comments).find(params[:post_id])
     @comment = Comment.new
@@ -37,10 +34,10 @@ class CommentsController < ApplicationController
   private
 
   def post_params(post)
-    params.require(:comment).permit(:text).merge(author: current_user, post: post)
+    params.require(:comment).permit(:text).merge(author: current_user, post:)
   end
-  
-# current_user is currently authenticate_user
+
+  # current_user is currently authenticate_user
   def can_user_remove_comment?(comment)
     current_user == comment.user || current_user.role == 'admin'
   end
