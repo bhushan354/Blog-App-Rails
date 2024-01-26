@@ -27,3 +27,8 @@ namespace :api do
           collection do
             get 'all'
           end
+          resources :comments, only: [:index, :create]
+        end
+      end
+    end
+  end
