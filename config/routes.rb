@@ -9,6 +9,20 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "users#index"
 
+  namespace :api do
+    namespace :v1 do 
+      resources :users, only: [] do
+        resource :posts , only: [:index, :show, :new, :create, :destroy], controller: 'posts' do
+          # because it operates on the collection of posts rather than a specific post
+          collection do
+            get 'all'
+          end
+          resources :comments, only: [:index, :create], controller: 'comments'
+        end
+      end
+    end
+  end
+
   # IMP : if we write resource we only get one route but if we write resources we get seven routes ,  you can check that using "rails routes "
 
   resources :users, only: [:index, :show] do
