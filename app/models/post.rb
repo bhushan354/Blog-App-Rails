@@ -1,9 +1,10 @@
 class Post < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
-  has_many :comments
-  has_many :likes
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
-  after_save :update_user_posts_counter
+  after_create :increment_posts_number
+  after_destroy :decrement_posts_number
 
   validates :title, presence: true, length: { maximum: 250 }
   validates :text, presence: true
@@ -16,7 +17,12 @@ class Post < ApplicationRecord
 
   private
 
-  def update_user_posts_counter
-    author.update(posts_counter: author.posts.count)
+  def increment_posts_number
+    # belongs_to :author at top hence
+    author.update(posts_counter: author.posts_counter + 1)
+  end
+
+  def decrement_posts_number
+    author.update(posts_counter: author.posts_counter - 1)
   end
 end

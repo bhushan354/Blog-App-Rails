@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable
   has_many :posts, foreign_key: 'author_id', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -24,5 +24,9 @@ class User < ApplicationRecord
 
   def likes?(post)
     likes.exists?(post_id: post.id)
+  end
+
+  def admin?
+    role == 'admin'
   end
 end

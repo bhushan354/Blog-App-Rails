@@ -7,4 +7,7 @@
 
 <p style="display: flex; justify-content: center; text-shadow: 2px 2px 4px grey;">
   <span style="border: 3px solid grey; padding: 4px"> <%= link_to 'New Post', new_user_post_path(@user) %></span>
+  <% if can? :read, @post %>
+  <% link_to "View", @post%>
+  <% end %>
 </p>
