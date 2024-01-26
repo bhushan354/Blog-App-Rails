@@ -1,20 +1,19 @@
 class CommentsController < ApplicationController
-  # The load_and_authorize_resource method automatically loads the resource (model) based on the controller's actions
-  load_and_authorize_resource
+  # load_and_authorize_resource
 
   def new
-    @post = Post.includes(:comments).find(params[:post_id])
+    Post.includes(:comments).find(params[:post_id])
     @comment = Comment.new
   end
 
   def create
-    @post = Post.find(params[:post_id])
-    @comment = Comment.create(post_params(@post))
+    post = Post.find(params[:post_id])
+    @comment = Comment.create(post_params(post))
     if @comment.save
-      flash[:notice] = 'A new comment is added successfully'
-      redirect_to user_post_path(current_user, @post)
+      flash[:notice] = 'Comment created successfully'
+      redirect_to user_post_path(current_user, post)
     else
-      flash.now[:error] = 'Something went wrong while creating comment'
+      flash.now[:error] = "Error: Couldn't create comment"
       render :new, status: :unprocessable_entity
     end
   end
@@ -23,7 +22,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @post = @comment.post
 
-    if can_user_remove_comment?(@comment)
+    if current_user_can_delete_comment?(@comment)
       @comment.destroy
       flash[:notice] = 'Comment successfully deleted.'
     else
@@ -36,11 +35,13 @@ class CommentsController < ApplicationController
   private
 
   def post_params(post)
-    params.require(:comment).permit(:text).merge(author: current_user, post:)
+    a_post = params.require(:comment).permit(:text)
+    a_post[:author] = current_user
+    a_post[:post] = post
+    a_post
   end
 
-  # current_user is currently authenticate_user
-  def can_user_remove_comment?(comment)
+  def current_user_can_delete_comment?(comment)
     current_user == comment.user || current_user.role == 'admin'
   end
 end
