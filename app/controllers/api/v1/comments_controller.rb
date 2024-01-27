@@ -16,9 +16,6 @@ class Api::V1::CommentsController < ApplicationController
     render json: pretty_json, status: :ok
   end
 
-  # http://api/v1/users/:user_id/posts/:post_id/comments
-  # e.g: http://localhost:3000/api/v1/users/1/posts/1/comments
-
   def create
     set_user
     set_post

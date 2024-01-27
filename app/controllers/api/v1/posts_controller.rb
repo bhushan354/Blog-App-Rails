@@ -1,8 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   before_action :set_user
   before_action :set_post, only: [:show]
-  # http://localhost:3000/api/v1/users/1/posts/all
-  # http://localhost:3000/api/v1/users/:user_id/posts/:post_id
 
   def index
     @posts = @user.posts.includes(:comments, :likes)
